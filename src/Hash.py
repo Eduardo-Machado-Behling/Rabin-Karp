@@ -12,35 +12,30 @@ def main():
     file.close()
     
     start = time.perf_counter()
-    positions , colissions = Hash( text , pattern , mod )
+    positions , colissions = Hash( text , pattern )
     end = time.perf_counter()
     
-    print( "Hash" + "," + pattern + "," + str( len(positions) ) + "," + str( end - start ) + "," + str( colissions) + "," + str( mod ) )
+    print( "Hash" + "," + pattern + "," + str( len(positions) ) + "," + str( end - start ) + "," + str( colissions) )
 
     
-def Hash( text , pattern , mod ):
+def Hash( text , pattern ):
     textSize = len( text );
     patternSize = len( pattern );
     
     positions = []
     colissions = 0
     
-    patternHash = 0
-    textHash = 0
-    
-    for index in range( 0 , patternSize ):
-        patternHash = patternHash + ord( pattern[index] ) * pow( 10 , patternSize - 1 - index )
-        textHash = textHash + ord( text[index] ) * pow( 10 , patternSize - 1 - index )
+    patternHash = hash( pattern )
     
     for index in range( 0 , textSize - patternSize ):
-        if textHash % mod == patternHash % mod :
-            if( text[index : index+ patternSize] == pattern ):
+        window = text[ index : index + patternSize ]
+        
+        if hash( window ) == patternHash:
+            if( window == pattern ):
                 positions.append( index )
             else:
-                colissions += 1
-                
-        if index < textSize - patternSize :
-            textHash = ( textHash - ord( text[index] ) * pow( 10 , patternSize - 1 ) ) * 10 + ord( text[index + patternSize] )
+                colissions += 1   
+        
     return positions , colissions
 
 main()
