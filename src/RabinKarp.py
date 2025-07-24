@@ -9,14 +9,14 @@ def main():
     
     file = open( "./assets/Bible.txt" , "r" );
     text = file.read()
-    text = text.replace( "\n", '' ).replace("\t", '')
+    text = text.replace( "\n", ' ' ).replace("\t", ' ')
     file.close()
     
     start = time.perf_counter()
     positions , colissions = Rabinkarp( text , pattern , radix , mod )
     end = time.perf_counter()
     
-    print( "RabinKarp" + "," + pattern + "," + str( len(positions) ) + "," + str( end - start ) + "," + str( colissions ) + "," + str( mod ) + "," + str( radix ) )
+    print( "RabinKarp" + "," + f'"{pattern}"' + "," + str( len(positions) ) + "," + str( end - start ) + "," + str( colissions ) + "," + str( mod ) + "," + str( radix ) )
 
     
 def Rabinkarp( text , pattern , radix , mod ):

@@ -8,14 +8,14 @@ def main():
     
     file = open( "./assets/Bible.txt" , "r" );
     text = file.read()
-    text = text.replace( "\n", '' ).replace("\t", '')
+    text = text.replace( "\n", ' ' ).replace("\t", ' ')
     file.close()
     
     start = time.perf_counter()
     positions , colissions = Hash( text , pattern )
     end = time.perf_counter()
     
-    print( "Hash" + "," + pattern + "," + str( len(positions) ) + "," + str( end - start ) + "," + str( colissions) )
+    print( "Hash" + "," + f'"{pattern}"' + "," + str( len(positions) ) + "," + str( end - start ) + "," + str( colissions) + ",," )
 
     
 def Hash( text , pattern ):
